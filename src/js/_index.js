@@ -24,21 +24,27 @@ const init = () => {
     light2.position.set( 0, - 1, 0 );
     scene.add( light2 );
 
+    
+    const material = new THREE.MeshPhongMaterial( {
+        color: 0x444444, specular: 0xffffff, shininess: 2500,
+        side: THREE.DoubleSide, vertexColors: THREE.VertexColors
+    } );
+
     //
-    let triangles = 12000;
-    let trianglesX = Math.floor(Math.sqrt(triangles));
-    let geometry = new THREE.BufferGeometry();
-    let positions = [];
-    let normals = [];
-    let colors = [];
-    let color = new THREE.Color();
-    let n = 2750, n2 = n / 2;	// triangles spread in the cube
-    let d = 25, d2 = d / 2;	// individual triangle size
-    let pA = new THREE.Vector3();
-    let pB = new THREE.Vector3();
-    let pC = new THREE.Vector3();
-    let cb = new THREE.Vector3();
-    let ab = new THREE.Vector3();
+    const triangles = 12000*2;
+    const trianglesX = Math.floor(Math.sqrt(triangles));
+    const geometry = new THREE.BufferGeometry();
+    const positions = [];
+    const normals = [];
+    const colors = [];
+    const color = new THREE.Color();
+    const n = 2750, n2 = n / 2;	// triangles spread in the cube
+    const d = 25, d2 = d / 2;	// individual triangle size
+    const pA = new THREE.Vector3();
+    const pB = new THREE.Vector3();
+    const pC = new THREE.Vector3();
+    const cb = new THREE.Vector3();
+    const ab = new THREE.Vector3();
     for ( let ix = 0; ix < trianglesX; ix++ ) {
         for ( let iy = 0; iy < trianglesX; iy++ ) {
             // positions
@@ -88,10 +94,6 @@ const init = () => {
     geometry.addAttribute( 'normal', new THREE.Float32BufferAttribute( normals, 3 ).onUpload( disposeArray ) );
     geometry.addAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ).onUpload( disposeArray ) );
     geometry.computeBoundingSphere();
-    let material = new THREE.MeshPhongMaterial( {
-        color: 0x444444, specular: 0xffffff, shininess: 2500,
-        side: THREE.DoubleSide, vertexColors: THREE.VertexColors
-    } );
     mesh = new THREE.Mesh( geometry, material );
     mesh.rotation.x = (Math.PI/180) * 45;
     scene.add( mesh );
