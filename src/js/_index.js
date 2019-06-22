@@ -106,7 +106,8 @@ const init = () => {
     container.appendChild( renderer.domElement );
     //
     stats = new Stats();
-    container.appendChild( stats.dom );
+    if (window.location.hash.contains('stash'))
+        container.appendChild( stats.dom );
     //
     window.addEventListener( 'resize', onWindowResize, false );
 }
